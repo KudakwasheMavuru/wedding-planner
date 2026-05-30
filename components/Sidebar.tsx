@@ -3,7 +3,26 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+
+function useSoftClick() {
+  return useCallback(() => {
+    try {
+      const ctx = new (window.AudioContext || (window as never as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.12);
+    } catch {}
+  }, []);
+}
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: "⌂" },
@@ -21,6 +40,7 @@ export default function Sidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
+  const playClick = useSoftClick();
 
   if (pathname === "/login") return null;
 
@@ -40,7 +60,7 @@ export default function Sidebar() {
           const active = pathname === href;
           return (
             <Link key={href} href={href}
-              onClick={() => setOpen(false)}
+              onClick={() => { playClick(); setOpen(false); }}
               className="flex items-center gap-3 px-6 py-3 text-sm transition-all"
               style={{
                 color: active ? "white" : "var(--sage-hint)",

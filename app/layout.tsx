@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import SessionProvider from "@/components/SessionProvider";
+import AmbientPetals from "@/components/AmbientPetals";
 
 export const metadata: Metadata = {
   title: "Kudakwashe & Maxine — Wedding Planner",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="h-full">
       <body className="h-full flex">
         <SessionProvider>
+          <AmbientPetals />
           <Sidebar />
           <main className="flex-1 md:ml-56 pt-14 md:pt-0 min-h-screen overflow-y-auto" style={{ background: "var(--cream)" }}>
             {children}
