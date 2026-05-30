@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 const NAV = [
   { href: "/", label: "Dashboard", icon: "⌂" },
@@ -17,6 +18,10 @@ const NAV = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+
+  if (pathname === "/login") return null;
+
   return (
     <aside className="fixed left-0 top-0 h-full w-56 flex flex-col z-30"
       style={{ background: "var(--sage-evergreen)" }}>
@@ -25,6 +30,7 @@ export default function Sidebar() {
         <h1 className="text-white font-serif text-lg leading-tight">Kudakwashe<br />&amp; Maxine</h1>
         <p className="text-xs mt-2" style={{ color: "var(--sage-hint)" }}>28 August 2027</p>
       </div>
+
       <nav className="flex-1 py-4 overflow-y-auto">
         {NAV.map(({ href, label, icon }) => {
           const active = pathname === href;
@@ -42,19 +48,27 @@ export default function Sidebar() {
           );
         })}
       </nav>
-      <div className="px-6 py-4 text-xs" style={{ color: "var(--sage-medium)", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-        <div className="flex gap-2 items-center mb-1">
-          <span className="w-3 h-3 rounded-full inline-block" style={{ background: "var(--sage-hint)" }} />
-          <span>Sage Hint</span>
-        </div>
-        <div className="flex gap-2 items-center mb-1">
-          <span className="w-3 h-3 rounded-full inline-block" style={{ background: "var(--sage)" }} />
-          <span>Sage</span>
-        </div>
-        <div className="flex gap-2 items-center">
-          <span className="w-3 h-3 rounded-full inline-block" style={{ background: "var(--sage-dark)" }} />
-          <span>Moss</span>
-        </div>
+
+      {/* User + sign out */}
+      <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        {session?.user && (
+          <div className="flex items-center gap-2 mb-3">
+            {session.user.image && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={session.user.image} alt="" className="w-7 h-7 rounded-full" />
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-medium truncate text-white">{session.user.name}</p>
+              <p className="text-xs truncate" style={{ color: "var(--sage-medium)" }}>{session.user.email}</p>
+            </div>
+          </div>
+        )}
+        <button
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="w-full text-xs py-2 rounded-lg text-left px-3 transition-all hover:opacity-80"
+          style={{ background: "rgba(255,255,255,0.08)", color: "var(--sage-hint)" }}>
+          ↩ Sign out
+        </button>
       </div>
     </aside>
   );
