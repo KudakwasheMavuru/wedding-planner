@@ -1,16 +1,27 @@
 import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-const ALLOWED_EMAILS = [
-  process.env.ALLOWED_EMAIL_1,
-  process.env.ALLOWED_EMAIL_2,
-].filter(Boolean) as string[];
+const USERS = [
+  { id: "1", name: "Kudakwashe", email: "mavurukuda@gmail.com" },
+  { id: "2", name: "Maxine", email: "maxinebeni@gmail.com" },
+];
+
+const PASSWORD = "KudaandMaxine2027!";
 
 const handler = NextAuth({
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
+        if (credentials.password !== PASSWORD) return null;
+        const user = USERS.find(u => u.email === credentials.email);
+        return user ?? null;
+      },
     }),
   ],
   pages: {
@@ -18,10 +29,6 @@ const handler = NextAuth({
     error: "/login",
   },
   callbacks: {
-    async signIn({ user }) {
-      if (ALLOWED_EMAILS.length === 0) return true;
-      return ALLOWED_EMAILS.includes(user.email ?? "");
-    },
     async session({ session }) {
       return session;
     },

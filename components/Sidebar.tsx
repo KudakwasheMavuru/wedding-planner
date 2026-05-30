@@ -57,10 +57,10 @@ export default function Sidebar() {
       <div className="px-5 py-4" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         {session?.user && (
           <div className="flex items-center gap-2 mb-3">
-            {session.user.image && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={session.user.image} alt="" className="w-7 h-7 rounded-full" />
-            )}
+            <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
+              style={{ background: "rgba(183,207,181,0.3)" }}>
+              {session.user.name?.[0] ?? "?"}
+            </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium truncate text-white">{session.user.name}</p>
               <p className="text-xs truncate" style={{ color: "var(--sage-medium)" }}>{session.user.email}</p>
@@ -93,9 +93,11 @@ export default function Sidebar() {
         <div className="flex-1 text-center">
           <span className="text-white font-serif text-sm">Kudakwashe &amp; Maxine</span>
         </div>
-        {session?.user?.image && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={session.user.image} alt="" className="w-7 h-7 rounded-full" />
+        {session?.user && (
+          <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
+            style={{ background: "rgba(183,207,181,0.3)" }}>
+            {session.user.name?.[0] ?? "?"}
+          </div>
         )}
       </div>
 
