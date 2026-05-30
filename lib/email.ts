@@ -1,10 +1,9 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const COUPLE_EMAILS = ["mavurukuda@gmail.com", "maxinebeni@gmail.com"];
 
 export async function sendEmail({ to, subject, html }: { to: string[]; subject: string; html: string }) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   return resend.emails.send({
     from: "Kuda & Maxine Wedding <wedding@resend.dev>",
     to,
