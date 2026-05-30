@@ -102,3 +102,20 @@ create policy "allow all" on vendors for all using (true) with check (true);
 create policy "allow all" on timeline for all using (true) with check (true);
 create policy "allow all" on payments for all using (true) with check (true);
 create policy "allow all" on notes for all using (true) with check (true);
+
+-- Vendor suggestions (from daily AI research cron)
+create table if not exists vendor_suggestions (
+  id text primary key,
+  category text default '',
+  name text default '',
+  description text default '',
+  website text default '',
+  instagram text default '',
+  phone text default '',
+  source text default '',
+  approved boolean default false,
+  created_at timestamptz default now()
+);
+
+alter table vendor_suggestions enable row level security;
+create policy "allow all" on vendor_suggestions for all using (true) with check (true);
