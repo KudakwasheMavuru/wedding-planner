@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-export const COUPLE_EMAILS = ["mavurukuda@gmail.com", "maxinebeni@gmail.com"];
+export const COUPLE_EMAILS = ["mavurukuda@gmail.com"];
 
 export async function sendEmail({ to, subject, html }: { to: string[]; subject: string; html: string }) {
   const resend = new Resend(process.env.RESEND_API_KEY);
