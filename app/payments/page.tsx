@@ -16,7 +16,7 @@ export default function PaymentsPage() {
   const [payments, setPayments] = useState<PaymentItem[]>([]);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setPayments(getPayments()); setMounted(true); }, []);
+  useEffect(() => { getPayments().then(p => { setPayments(p); setMounted(true); }); }, []);
 
   function update(id: string, field: keyof PaymentItem, value: unknown) {
     const updated = payments.map(p => p.id === id ? { ...p, [field]: value } : p);

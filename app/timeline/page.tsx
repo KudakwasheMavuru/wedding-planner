@@ -10,7 +10,7 @@ export default function TimelinePage() {
   const [events, setEvents] = useState<TimelineEvent[]>([]);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setEvents(getTimeline()); setMounted(true); }, []);
+  useEffect(() => { getTimeline().then(e => { setEvents(e); setMounted(true); }); }, []);
 
   function update(id: string, field: keyof TimelineEvent, value: string) {
     const updated = events.map(e => e.id === id ? { ...e, [field]: value } : e);

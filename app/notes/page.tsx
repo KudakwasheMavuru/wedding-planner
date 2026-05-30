@@ -12,7 +12,7 @@ export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setNotes(getNotes()); setMounted(true); }, []);
+  useEffect(() => { getNotes().then(n => { setNotes(n); setMounted(true); }); }, []);
 
   function update(id: string, field: keyof Note, value: string) {
     const updated = notes.map(n => n.id === id ? { ...n, [field]: value } : n);

@@ -9,8 +9,7 @@ export default function BudgetPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setItems(getBudget());
-    setMounted(true);
+    getBudget().then(items => { setItems(items); setMounted(true); });
   }, []);
 
   function update(id: string, field: keyof BudgetItem, raw: string) {

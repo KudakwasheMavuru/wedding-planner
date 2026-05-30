@@ -22,8 +22,7 @@ export default function ChecklistPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setItems(getChecklist());
-    setMounted(true);
+    getChecklist().then(items => { setItems(items); setMounted(true); });
   }, []);
 
   function updateStatus(id: string, status: ChecklistItem["status"]) {

@@ -21,22 +21,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     setMounted(true);
-    const checklist = getChecklist();
-    const budget = getBudget();
-    const guests = getGuests().filter(g => g.name);
-    const totalSpent = budget.reduce((s, b) => s + (b.actualCost || 0), 0);
-    setStats({
-      totalTasks: checklist.length,
-      completed: checklist.filter(c => c.status === "Completed").length,
-      inProgress: checklist.filter(c => c.status === "In Progress").length,
-      notStarted: checklist.filter(c => c.status === "Not Started").length,
-      totalBudget: WEDDING_INFO.budget,
-      totalSpent,
-      remaining: WEDDING_INFO.budget - totalSpent,
-      totalInvited: guests.length,
-      accepted: guests.filter(g => g.rsvpStatus === "Accepted").length,
-      declined: guests.filter(g => g.rsvpStatus === "Declined").length,
-      pending: guests.filter(g => g.rsvpStatus === "Pending").length,
+    Promise.all([getChecklist(), getBudget(), getGuests()]).then(([checklist, budget, allGuests]) => {
+      const guests = allGuests.filter(g => g.name);
+      const totalSpent = budget.reduce((s, b) => s + (b.actualCost || 0), 0);
+      setStats({
+        totalTasks: checklist.length,
+        completed: checklist.filter(c => c.status === "Completed").length,
+        inProgress: checklist.filter(c => c.status === "In Progress").length,
+        notStarted: checklist.filter(c => c.status === "Not Started").length,
+        totalBudget: WEDDING_INFO.budget,
+        totalSpent,
+        remaining: WEDDING_INFO.budget - totalSpent,
+        totalInvited: guests.length,
+        accepted: guests.filter(g => g.rsvpStatus === "Accepted").length,
+        declined: guests.filter(g => g.rsvpStatus === "Declined").length,
+        pending: guests.filter(g => g.rsvpStatus === "Pending").length,
+      });
     });
   }, []);
 

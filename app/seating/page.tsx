@@ -12,7 +12,7 @@ export default function SeatingPage() {
   const [mounted, setMounted] = useState(false);
   const [selectedTable, setSelectedTable] = useState<number | null>(null);
 
-  useEffect(() => { setGuests(getGuests()); setMounted(true); }, []);
+  useEffect(() => { getGuests().then(g => { setGuests(g); setMounted(true); }); }, []);
 
   function assignTable(guestId: string, tableNum: number | null) {
     const updated = guests.map(g => g.id === guestId ? { ...g, tableNumber: tableNum } : g);

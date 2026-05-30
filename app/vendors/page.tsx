@@ -10,7 +10,7 @@ export default function VendorsPage() {
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setVendors(getVendors()); setMounted(true); }, []);
+  useEffect(() => { getVendors().then(v => { setVendors(v); setMounted(true); }); }, []);
 
   function update(id: string, field: keyof Vendor, value: unknown) {
     const updated = vendors.map(v => v.id === id ? { ...v, [field]: value } : v);

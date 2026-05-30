@@ -17,7 +17,7 @@ export default function GuestsPage() {
   const [mounted, setMounted] = useState(false);
   const [filter, setFilter] = useState("All");
 
-  useEffect(() => { setGuests(getGuests()); setMounted(true); }, []);
+  useEffect(() => { getGuests().then(g => { setGuests(g); setMounted(true); }); }, []);
 
   function update(id: string, field: keyof Guest, value: unknown) {
     const updated = guests.map(g => g.id === id ? { ...g, [field]: value } : g);
