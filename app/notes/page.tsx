@@ -45,7 +45,7 @@ export default function NotesPage() {
   if (otherNotes.length) byCategory["Other"] = otherNotes;
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
+    <div className="p-4 md:p-8 max-w-5xl mx-auto">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "var(--sage-dark)" }}>Ideas</p>

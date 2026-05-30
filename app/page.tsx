@@ -50,7 +50,7 @@ export default function Dashboard() {
   if (!mounted) return null;
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 md:p-8 max-w-6xl mx-auto">
       <div className="mb-10">
         <p className="text-xs uppercase tracking-widest mb-2" style={{ color: "var(--sage-dark)" }}>Welcome back</p>
         <h1 className="text-4xl font-serif mb-1" style={{ color: "var(--sage-evergreen)" }}>

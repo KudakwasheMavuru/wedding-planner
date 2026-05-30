@@ -47,7 +47,7 @@ export default function GuestsPage() {
   const pending = named.filter(g => g.rsvpStatus === "Pending").length;
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 md:p-8 max-w-6xl mx-auto">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "var(--sage-dark)" }}>People</p>
@@ -61,7 +61,7 @@ export default function GuestsPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {[
           { label: "Total Invited", value: named.length },
           { label: "Accepted", value: accepted },

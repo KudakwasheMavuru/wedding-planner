@@ -29,7 +29,7 @@ export default function SeatingPage() {
   }
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 md:p-8 max-w-6xl mx-auto">
       <div className="mb-8">
         <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "var(--sage-dark)" }}>Layout</p>
         <h1 className="text-3xl font-serif" style={{ color: "var(--sage-evergreen)" }}>Seating Chart</h1>

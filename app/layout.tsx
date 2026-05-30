@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="h-full flex">
         <SessionProvider>
           <Sidebar />
-          <main className="flex-1 ml-56 min-h-screen overflow-y-auto" style={{ background: "var(--cream)" }}>
+          <main className="flex-1 md:ml-56 pt-14 md:pt-0 min-h-screen overflow-y-auto" style={{ background: "var(--cream)" }}>
             {children}
           </main>
         </SessionProvider>

@@ -37,7 +37,7 @@ export default function VendorsPage() {
   const depositPaid = vendors.filter(v => v.depositPaid).length;
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-4 md:p-8 max-w-6xl mx-auto">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "var(--sage-dark)" }}>Suppliers</p>
@@ -50,7 +50,7 @@ export default function VendorsPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
         {[
           { label: "Total Vendors", value: vendors.length },
           { label: "Contracts Signed", value: contractSigned },
